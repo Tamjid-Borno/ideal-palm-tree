@@ -1,5 +1,3 @@
-# shop/apps.py
-
 from django.apps import AppConfig
 
 class ShopConfig(AppConfig):
