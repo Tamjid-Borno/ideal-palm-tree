@@ -19,7 +19,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -39,7 +38,6 @@ CSRF_TRUSTED_ORIGINS = [
     'https://454e-103-55-146-215.ngrok-free.app',
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,12 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'django.contrib.sites',
+    'django.contrib.sites',
     'rest_framework',
     'shop',
-     'grappelli',
-
-    
+    'grappelli',
 ]
 
 MIDDLEWARE = [
@@ -91,10 +87,7 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
-
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -126,7 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -137,7 +129,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -156,7 +147,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# settings.py
+# Email settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -165,10 +156,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'tamjidborno2009@gmail.com'
 EMAIL_HOST_PASSWORD = 'uazu kugw oxfw yswh'
 
-
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-
-SITE_ID = 1 
+SITE_ID = 1
