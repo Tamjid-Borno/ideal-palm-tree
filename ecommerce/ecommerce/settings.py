@@ -26,8 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'rest_framework',
-    'shop.apps.ShopConfig',
     'grappelli',
+    'shop.apps.ShopConfig',
 ]
 
 MIDDLEWARE = [
