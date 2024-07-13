@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<!-- Include the CSS file for styling -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/form_styles.css' %}">
+{% include 'navbar.html' %}
+<div class="centered-container mt-5">
+    <div class="container register-container">
+        <h2>Create your Account</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="username">Username*</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                    {% if form.username.errors %}
+                        <div class="error text-danger">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="email">Email Address*</label>
+                    <div class="input-group">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Please enter your email address" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="send-verification">Send</button>
+                        </div>
+                    </div>
+                    {% if form.email.errors %}
+                        <div class="error text-danger">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="verification_code">Verification Code from Email*</label>
+                <input type="text" class="form-control" id="verification_code" name="verification_code" placeholder="Enter verification code" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="password1">Password*</label>
+                    <input type="password" class="form-control" id="password1" name="password1" placeholder="Minimum 6 characters with a number and a letter" required>
+                    {% if form.password1.errors %}
+                        <div class="error text-danger">{{ form.password1.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="password2">Confirm Password*</label>
+                    <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm your password" required>
+                    {% if form.password2.errors %}
+                        <div class="error text-danger">{{ form.password2.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="birthday">Birthday</label>
+                    <input type="date" class="form-control" id="birthday" name="birthday">
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="gender">Gender</label>
+                    <select class="form-control" id="gender" name="gender">
+                        <option>Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="offers" name="offers">
+                <label class="form-check-label" for="offers">I'd like to receive exclusive offers and promotions via SMS</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">SIGN UP</button>
+            <p class="text-center mt-3">By clicking "SIGN UP", I agree to the Terms of Use and Privacy Policy</p>
+            <p class="text-center">Or, sign up with</p>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-facebook mr-2">Facebook</button>
+                <button type="button" class="btn btn-google">Google</button>
+            </div>
+        </form>
+        <p class="text-center mt-3">Already a member? <a href="#">Login here</a>.</p>
+    </div>
+</div>
+
+<script>
+document.getElementById('send-verification').addEventListener('click', function() {
+    var email = document.getElementById('email').value;
+    // Send verification code to the provided email address using AJAX
+    fetch('{% url "send_verification_code" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            'email': email
+        })
+    }).then(response => response.json()).then(data => {
+        if (data.success) {
+            alert('Verification code sent to your email!');
+        } else {
+            alert('Failed to send verification code: ' + data.error);
+        }
+    }).catch(error => {
+        alert('Error: ' + error.message);
+    });
+});
+</script>
+{% endblock %}
+
+<style>
+/* Centered container styles */
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container styles */
+.register-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #333; /* Dark background color */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: #fff; /* White text color */
+}
+
+/* Form heading */
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #fff; /* White text color */
+}
+
+/* Form field styles */
+.form-control {
+    background-color: #555; /* Dark input background color */
+    border: 1px solid #777; /* Dark border color */
+    color: #fff; /* White text color */
+}
+
+.form-control::placeholder {
+    color: #aaa; /* Light placeholder color */
+}
+
+.form-control:focus {
+    border-color: #80bdff; /* Focus border color */
+    outline: none;
+}
+
+/* Checkbox styles */
+.form-check-input {
+    background-color: #555; /* Dark checkbox background color */
+    border: 1px solid #777; /* Dark border color */
+}
+
+.form-check-label {
+    color: #fff; /* White text color */
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #f8b400; /* Custom button color */
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #e0a800; /* Darker button color on hover */
+}
+
+.btn-secondary {
+    background-color: #777; /* Dark button color */
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #666; /* Darker button color on hover */
+}
+
+/* Social buttons */
+.btn-facebook {
+    background-color: #3b5998; /* Facebook color */
+    border: none;
+}
+
+.btn-facebook:hover {
+    background-color: #2d4373; /* Darker Facebook color on hover */
+}
+
+.btn-google {
+    background-color: #db4437; /* Google color */
+    border: none;
+}
+
+.btn-google:hover {
+    background-color: #c23321; /* Darker Google color on hover */
+}
+
+/* Link styles */
+.register-container a {
+    color: #f8b400; /* Custom link color */
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}
+</style>

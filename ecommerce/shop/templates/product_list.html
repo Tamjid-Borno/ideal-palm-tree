@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Product List{% endblock %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    
+    <div class="centered-container">
+        <h1 class="text-center">Product List</h1>
+        <form method="GET" action="{% url 'product_list' %}">
+            <div class="form-group">
+                <label for="sort">Sort by:</label>
+                <select name="sort" id="sort" class="form-control mb-4">
+                    <option value="name">Name</option>
+                    <option value="price">Price</option>
+                    <option value="created_at">Newest</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Sort</button>
+        </form>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <a href="{% url 'product_detail' product.pk %}" class="card-link">
+                        <div class="card h-100">
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-muted">${{ product.price }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+<footer>
+    <p>&copy; 2024 E-commerce Site. All rights reserved.</p>
+    <p><a href="#">About Us</a> | <a href="#">Contact Us</a> | <a href="#">Privacy Policy</a></p>
+    <p>Follow us on:
+        <a href="#"><ion-icon name="logo-facebook" style="font-size: 24px;"></ion-icon></a>
+        <a href="#"><ion-icon name="logo-reddit" style="font-size: 24px;"></ion-icon></a>
+        <a href="#"><ion-icon name="logo-instagram" style="font-size: 24px;"></ion-icon></a>
+    </p>
+</footer>

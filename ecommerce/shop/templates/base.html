@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}E-commerce Site{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+    <style>
+        /* Custom styles for the navigation bar */
+        .navbar {
+            min-height: 80px; /* Adjust this value as needed */
+            align-items: center; /* Center-align the items vertically */
+            background-color: #000000; /* Adjust the background color as needed */
+        }
+
+        .navbar-nav .nav-link,
+        .navbar-brand {
+            padding-top: 0.5rem; /* Adjust the padding as needed */
+            padding-bottom: 0.5rem; /* Adjust the padding as needed */
+        }
+
+        .navbar-toggler {
+            padding: 0.5rem 1rem; /* Adjust the padding for the toggle button as needed */
+        }
+
+        .form-inline .form-control {
+            width: 600px; /* Adjust the width of the search bar */
+            height: 40px; /* Adjust the height of the search bar */
+            margin-right: 0.5rem; /* Adjust the margin as needed */
+            border: 2px solid white;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        /* Custom styles for the search button */
+        .form-inline .btn {
+            width: 100px; /* Adjust the width of the search button */
+            height: 40px; /* Adjust the height of the search button */
+            color: white;
+            background-color: black;
+            border: 2px solid white;
+            border-radius: 10px;
+            padding: 5px 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .form-inline .btn:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .navbar .navbar-brand img {
+            height: 50px; /* Adjust the height of the logo as needed */
+        }
+
+        .navbar-nav .nav-item {
+            margin: 0 15px; /* Adjust the spacing between nav items */
+        }
+
+        .navbar-nav .nav-item a {
+            color: white; /* Set the color of the nav links to white */
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-item a:hover {
+            color: #f8b400; /* Change the color on hover */
+        }
+
+        .navbar-nav .dropdown-menu {
+            background-color: black;
+        }
+
+        .navbar-nav .dropdown-item {
+            color: white;
+        }
+
+        .navbar-nav .dropdown-item:hover {
+            background-color: #f8b400;
+            color: black;
+        }
+
+        .nav-link .ion-icon {
+            vertical-align: middle; /* Align the icon with the text */
+            margin-right: 5px; /* Add some space between the icon and the text */
+        }
+
+        /* Add top padding to the body to prevent content being hidden behind the navbar */
+        body {
+            padding-top: 100px; /* Adjust this value as needed */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #a8a8a8!important;
+
+        }
+
+        /* Centered container for main content */
+        .centered-container {
+            width: 70%;
+            margin: 0 auto;
+            flex: 1; /* Make the container take the available space */
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #000000;
+        }
+        .text-center {
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.jpg' %}" alt="E-commerce Site">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'product_list' %}">Product List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about_us' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact_us' %}">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" action="{% url 'product_list' %}" method="get">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                        <button class="btn my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <ion-icon name="person-circle-outline" style="font-size: 24px; color: white;" class="ion-icon"></ion-icon>
+                        Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Login</a>
+                        <a class="dropdown-item" href="#">Register</a>
+                        <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                       
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <ion-icon name="cart-outline" style="font-size: 24px; color: white;"></ion-icon>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="centered-container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 E-commerce Site. All rights reserved.</p>
+        <p><a href="#">About Us</a> | <a href="#">Contact Us</a> | <a href="#">Privacy Policy</a></p>
+        <p>Follow us on:
+            <a href="#"><ion-icon name="logo-facebook" style="font-size: 24px;"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-reddit" style="font-size: 24px;"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-instagram" style="font-size: 24px;"></ion-icon></a>
+        </p>
+        
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</body>
+</html>

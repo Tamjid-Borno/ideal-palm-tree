@@ -1,0 +1,71 @@
+/* Custom styles for the Django admin panel */
+
+
+
+#header {
+    background-color: #333;
+}
+
+#header h1 {
+    color: #fff;
+}
+
+#header .breadcrumbs {
+    color: #fff;
+}
+
+.module h2, .module caption {
+    color: #333;
+}
+
+button, input[type="submit"], input[type="button"], input[type="reset"] {
+    background-color: #333;
+    color: #fff;
+}
+
+button:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+    background-color: #555;
+}
+/* static/css/custom_admin.css */
+.custom-header {
+    background-color: #000;
+    color: #fff;
+}
+
+
+body {
+    background-color: #07111a;
+}
+
+.dashboard {
+    color: white; /* Adjust text color for better contrast on dark background */
+}
+
+.card {
+    background-color: #1b2836;
+    color: white;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin: 10px;
+    position: relative; /* Position relative for the badge positioning */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 230px; /* Adjust width as necessary */
+    height: 230px; /* Adjust height as necessary */
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgb(212, 7, 7);
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <style>
+/* Custom styles for the navigation bar */
+/* Navbar styling */
+.navbar {
+    background-color: #000000; /* Adjust the background color as needed */
+    padding: 0.5rem 1rem;
+    align-items: center; /* Center-align the items vertically */
+    width: 100%!important;
+    transition: height 0.3s ease;
+}
+
+.navbar-nav .nav-link,
+.navbar-brand {
+    padding-top: 0.5rem; /* Adjust the padding as needed */
+    padding-bottom: 0.5rem; /* Adjust the padding as needed */
+}
+
+.navbar-toggler.custom-toggler {
+    color: white!important;
+    border: 2px solid white!important;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 1.5rem;
+}
+
+.navbar-toggler.custom-toggler:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Default width for large screens */
+.form-inline .form-control {
+    width: 30vw!important; /* Default width for large screens */
+    height: 40px; /* Adjust the height of the search bar */
+    margin-right: 0.5rem; /* Adjust the margin as needed */
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.form-inline .btn {
+    width: 40px; /* Adjust the width of the search button */
+    height: 40px; /* Adjust the height of the search button */
+    color: white;
+    background-color: black;
+    border: 2px solid white;
+    border-radius: 5px;
+    position: relative; /* Positioning relative to input field */
+    right: 45px; /* Adjust to overlap the input field */
+    top: 0px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-inline .btn:hover {
+    background-color: white;
+    color: black;
+}
+
+.navbar .navbar-brand img {
+    height: 50px; /* Adjust the height of the logo as needed */
+}
+
+.navbar-nav .nav-item {
+    margin: 0 15px; /* Adjust the spacing between nav items */
+}
+
+.navbar-nav .nav-item a {
+    color: white; /* Set the color of the nav links to white */
+    transition: color 0.3s;
+    font-size: 1rem;
+}
+
+.navbar-nav .nav-item a:hover {
+    color: #f8b400; /* Change the color on hover */
+}
+
+.navbar-nav .dropdown-menu {
+    background-color: black;
+}
+
+.navbar-nav .dropdown-item {
+    color: white;
+}
+
+.navbar-nav .nav-item a,
+.navbar-nav .dropdown-item {
+    color: white; /* Set the color of the nav links to white */
+    text-align: center!important; /* Center-align text */
+    width: 100%; /* Full width for text centering */
+    transition: color 0.3s;
+}
+
+.navbar-nav .dropdown-item:hover {
+    background-color: #f8b400;
+    color: black;
+}
+
+.nav-link .ion-icon {
+    vertical-align: middle; /* Align the icon with the text */
+    margin-right: 5px; /* Add some space between the icon and the text */
+}
+
+/* Responsive styles for navbar */
+@media (max-width: 1195px) {
+    .form-inline .form-control {
+        width: 85vw!important; /* Make the search bar take full width on smaller screens */
+        margin-right: 0;
+    }
+    .navbar-nav .nav-item a {
+        font-size: 0.5rem;
+    }
+}
+
+@media (max-width: 1040px) {
+    .form-inline .form-control {
+        width: 85vw!important; /* Make the search bar take full width on smaller screens */
+        margin-right: 0;
+    }
+    .navbar-nav .nav-item a {
+        font-size: 0.4rem;
+    }
+}
+
+
+@media (max-width: 992px) {
+    .form-inline .form-control {
+        width: 85vw!important; /* Make the search bar take full width on smaller screens */
+        margin-right: 0;
+    }
+
+    .form-inline .btn {
+        width: auto; /* Adjust the width of the search button */
+        height: auto; /* Adjust the height of the search button */
+        right: 0; /* Adjust the position */
+        top: 0; /* Adjust the position */
+    }
+
+    .navbar-nav .nav-item {
+        margin: 0.5rem 0; /* Adjust spacing between nav items on smaller screens */
+    }
+
+    .navbar .navbar-brand img {
+        height: 40px; /* Adjust the height of the logo on smaller screens */
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.5rem; /* Adjust the padding for the toggle button on smaller screens */
+    }
+
+    .navbar-collapse {
+        background-color: #000; /* Ensure the background color matches the navbar */
+    }
+
+    .navbar-collapse.show {
+        height: auto; /* Ensure the navbar expands with the content */
+    }
+
+    .navbar-nav .nav-item a {
+        font-size: 1rem; /* Ensure readability on smaller screens */
+    }
+}
+
+body {
+    padding-top: 100px; /* Adjust this value as needed */
+    background-color: #a8a8a8!important;
+}
+
+.jumbotron {
+    background-color: #e5e7e7f1;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 450px;
+    margin-top: -50px;
+}
+
+.jumbotron h1 {
+    color: #007bff;
+    font-size: 3rem;
+}
+
+.jumbotron p {
+    font-size: 1.5rem;
+}
+
+.jumbotron .btn {
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+}
+
+.carousel-item {
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-carousel-control {
+    width: 5%;
+}
+
+.custom-carousel-control .carousel-control-prev-icon,
+.custom-carousel-control .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.carousel-control-prev {
+    left: 10px;
+}
+
+.carousel-control-next {
+    right: 10px;
+}
+
+.container {
+    max-width: 900px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+}
+
+.text-center {
+    text-align: center;
+}
+
+footer {
+    background-color: #000;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+}
+
+.category-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.star-rating {
+    font-size: 0;
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 20px;
+    background: url('../images/star-bg.png') repeat-x 0 0;
+}
+
+.star-rating span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: url('../images/star-fill.png') repeat-x 0 0;
+}
+
+.leave-comment form {
+    margin-top: 20px;
+}
+
+.leave-comment textarea {
+    height: 20px;
+    resize: vertical;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+}
+
+.leave-comment button {
+    margin-top: 10px;
+}
+
+/* Ensuring the cards are responsive */
+.card {
+    width: 12rem; /* Make the card width 100% */
+    margin: 1rem 2rem; /* Margin for spacing */
+    flex: 1 1 auto; /* Flex properties */
+}
+
+@media (min-width: 1352px) {
+    .card {
+        width: 18rem; /* Original card width for large screens */
+    }
+}
+
+@media (max-width: 992px) {
+    .card {
+        width: 80%; /* Adjust card width for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 100%; /* Full width card for smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        width: 100%; /* Full width card for the smallest screens */
+        padding: 0 10px;
+    }
+}
+
+/* Centered container adjustments */
+.centered-container {
+    width: 80%;
+    margin: 0 auto;
+    background-color: white;
+}
+
+@media (max-width: 1200px) {
+    .centered-container {
+        width: 80%;
+    }
+}
+
+@media (max-width: 992px) {
+    .centered-container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .centered-container {
+        width: 95%;
+    }
+}
+
+@media (max-width: 576px) {
+    .centered-container {
+        width: 100%;
+        padding: 0 10px;
+    }
+}
+
+footer {
+    background-color: #000;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+}
+
+.carousel-inner {
+    display: flex;
+    align-items: center;
+}
+
+.carousel-item {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item img {
+    max-height: 500px; /* Adjust this value to match your image height */
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.jpg' %}" alt="E-commerce Site">
+        </a>
+        <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <ion-icon name="grid"></ion-icon>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'product_list' %}">Product List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about_us' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact_us' %}">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" action="{% url 'product_list' %}" method="get">
+                        <div class="input-group">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                            <div class="input-group-append">
+                                <button class="btn my-2 my-sm-0" type="submit"><ion-icon name="search-sharp"></ion-icon></button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <ion-icon name="person-circle-outline" style="font-size: 24px; color: white;" class="ion-icon"></ionicon>
+                        Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                        <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'view_cart' %}">
+                        <ion-icon name="cart-outline" style="font-size: 24px; color: white;"></ion-icon>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    
+
+    <div class="centered-container">
+<!-- Carousel Section -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <ol class="carousel-indicators">
+        {% for item in carousel_items %}
+            <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+        {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+        {% for item in carousel_items %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <a href="{% url 'product_list' %}">
+                    <img src="{{ item.image.url }}" class="d-block w-100 carousel-image" alt="Carousel Image {{ forloop.counter }}">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev custom-carousel-control" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next custom-carousel-control" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<!-- Featured Products Section -->
+<div class="centered-container mt-5">
+    <div class="col-12 text-center">
+        <h2>Featured Products</h2>
+        <div class="row">
+            {% for product in featured_products %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <a href="{% url 'product_detail' product.pk %}">
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">${{ product.price }}</span>
+                                <span class="text-muted">{{ product.get_category_display }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Product Categories Section -->
+<div class="centered-container mt-5">
+    <div class="col-12 text-center">
+        <h2>Product Categories</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="category-card">
+                    <a href="{% url 'product_by_category' category='FASHION' %}">
+                        <img src="{% static 'images/category1.jpg' %}" alt="Category 1">
+                        <h5>FASHION</h5>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="category-card">
+                    <a href="{% url 'product_by_category' category='ELECTRONICS' %}">
+                        <img src="{% static 'images/category2.jpg' %}" alt="Category 2">
+                        <h5>ELECTRONICS</h5>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="category-card">
+                    <a href="{% url 'product_by_category' category='BEAUTY' %}">
+                        <img src="{% static 'images/category3.jpg' %}" alt="Category 3">
+                        <h5>BEAUTY</h5>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="category-card">
+                    <a href="{% url 'product_by_category' category='OTHERS' %}">
+                        <img src="{% static 'images/category4.jpg' %}" alt="Category 4">
+                        <h5>OTHERS</h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- Customer Testimonials Section -->
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h2>What Our Customers Say</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <blockquote class="blockquote">
+                            <p class="mb-0">Great products at great prices!</p>
+                            <footer class="blockquote-footer">John Doe</footer>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-4">
+                        <blockquote class="blockquote">
+                            <p class="mb-0">Amazing customer service and fast delivery!</p>
+                            <footer class="blockquote-footer">Jane Smith</footer>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-4">
+                        <blockquote class="blockquote">
+                            <p class="mb-0">I love shopping here. Highly recommended!</p>
+                            <footer class="blockquote-footer">Alex Johnson</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Signup Section -->
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h2>Stay Updated</h2>
+                {% if subscribed %}
+                    <p>You are already subscribed!</p>
+                    <form class="form-inlin justify-content-center" method="post" action="{% url 'unsubscribe' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger mb-2">Unsubscribe</button>
+                    </form>
+                {% else %}
+                    <p>Sign up for our newsletter to receive the latest news and exclusive offers.</p>
+                    <form class="form-inline justify-content-center" method="post" action="{% url 'subscribe' %}">
+                        {% csrf_token %}
+                        <input type="email" class="form-control mb-2 mr-sm-2" name="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn-primary mb-2">Sign Up</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+    </div>
+    <footer class="row mt-5">
+        <div class="col-12 text-center">
+            <p>&copy; 2024 E-commerce Site. All rights reserved.</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">About Us</a></li>
+                <li class="list-inline-item"><a href="#">Contact Us</a></li>
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            </ul>
+            <div>
+                <a href="#"><ion-icon name="logo-facebook" style="font-size: 24px;"></ion-icon></a>
+                <a href="#"><ion-icon name="logo-reddit" style="font-size: 24px;"></ion-icon></a>
+                <a href="#"><ion-icon name="logo-instagram" style="font-size: 24px;"></ion-icon></a>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        $(document).ready(function() {
+            $('#carouselExampleIndicators').carousel({
+                interval: 5000 // Change the value to control the speed of the carousel
+            });
+        });
+    </script>
+</body>
+</html>

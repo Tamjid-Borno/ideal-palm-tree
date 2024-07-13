@@ -1,0 +1,25 @@
+<!-- templates/admin/base_site.html -->
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom_admin.css' %}">
+{% endblock %}
+{% block extrahead %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'js/custom_admin.js' %}"></script>
+{% endblock %}
+
+<!-- templates/admin/index.html -->
+{% extends "admin/base_site.html" %}
+{% block content %}
+<div class="dashboard">
+    <h1>Custom Dashboard</h1>
+    <div class="dashboard-cards">
+        <div class="card">
+            <h2>Orders</h2>
+            <p>{{ orders_count }} orders</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

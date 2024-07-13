@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <style>
+        .navbar {
+            background-color: #000000;
+            padding: 0.5rem 1rem;
+            align-items: center;
+            width: 100%!important;
+            transition: height 0.3s ease;
+        }
+
+        .navbar-nav .nav-link,
+        .navbar-brand {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .navbar-toggler.custom-toggler {
+            color: white!important;
+            border: 2px solid white!important;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 1.5rem;
+        }
+
+        .navbar-toggler.custom-toggler:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .form-inline .form-control {
+            width: 30vw!important;
+            height: 40px;
+            margin-right: 0.5rem;
+            border: 2px solid white;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        .form-inline .btn {
+            width: 40px;
+            height: 40px;
+            color: white;
+            background-color: black;
+            border: 2px solid white;
+            border-radius: 5px;
+            position: relative;
+            right: 45px;
+            top: 0px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-inline .btn:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .navbar .navbar-brand img {
+            height: 50px;
+        }
+
+        .navbar-nav .nav-item {
+            margin: 0 15px;
+        }
+
+        .navbar-nav .nav-item a {
+            color: white;
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+
+        .navbar-nav .nav-item a:hover {
+            color: #f8b400;
+        }
+
+        .navbar-nav .dropdown-menu {
+            background-color: black;
+        }
+
+        .navbar-nav .dropdown-item {
+            color: white;
+        }
+
+        .navbar-nav .nav-item a,
+        .navbar-nav .dropdown-item {
+            color: white;
+            text-align: center!important;
+            width: 100%;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .dropdown-item:hover {
+            background-color: #f8b400;
+            color: black;
+        }
+
+        .nav-link .ion-icon {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        @media (max-width: 1195px) {
+            .form-inline .form-control {
+                width: 85vw!important;
+                margin-right: 0;
+            }
+            .navbar-nav .nav-item a {
+                font-size: 0.5rem;
+            }
+        }
+
+        @media (max-width: 1040px) {
+            .form-inline .form-control {
+                width: 85vw!important;
+                margin-right: 0;
+            }
+            .navbar-nav .nav-item a {
+                font-size: 0.4rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .form-inline .form-control {
+                width: 85vw!important;
+                margin-right: 0;
+            }
+
+            .form-inline .btn {
+                width: auto;
+                height: auto;
+                right: 0;
+                top: 0;
+            }
+
+            .navbar-nav .nav-item {
+                margin: 0.5rem 0;
+            }
+
+            .navbar .navbar-brand img {
+                height: 40px;
+            }
+
+            .navbar-toggler {
+                padding: 0.25rem 0.5rem;
+            }
+
+            .navbar-collapse {
+                background-color: #000;
+            }
+
+            .navbar-collapse.show {
+                height: auto;
+            }
+
+            .navbar-nav .nav-item a {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.jpg' %}" alt="E-commerce Site">
+        </a>
+        <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <ion-icon name="grid"></ion-icon>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'product_list' %}">Product List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about_us' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact_us' %}">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" action="{% url 'product_list' %}" method="get">
+                        <div class="input-group">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                            <div class="input-group-append">
+                                <button class="btn my-2 my-sm-0" type="submit"><ion-icon name="search-sharp"></ion-icon></button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <ion-icon name="person-circle-outline" style="font-size: 24px; color: white;" class="ion-icon"></ionicon>
+                        Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                        <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'view_cart' %}">
+                        <ion-icon name="cart-outline" style="font-size: 24px; color: white;"></ion-icon>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</body>
+</html>

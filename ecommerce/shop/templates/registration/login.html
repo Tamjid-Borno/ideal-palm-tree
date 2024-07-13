@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<!-- Include the CSS file for styling -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/form_styles.css' %}">
+
+<div class="centered-container mt-5">
+    <div class="container register-container">
+        <h2>Login to your Account</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="username">Username*</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                    {% if form.username.errors %}
+                        <div class="error text-danger">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                    {% if error %}
+                        <div class="error text-danger">{{ error }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <p class="text-center mt-3">Forgot your password? <a href="{% url 'forgot_password' %}">Reset here</a>.</p>
+            <p class="text-center">Or, login with</p>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-facebook mr-2">Facebook</button>
+                <button type="button" class="btn btn-google">Google</button>
+            </div>
+        </form>
+        <p class="text-center mt-3">Don't have an account? <a href="{% url 'register' %}">Register here</a>.</p>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+/* Centered container styles */
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container styles */
+.register-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #333; /* Dark background color */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: #fff; /* White text color */
+}
+
+/* Form heading */
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #fff; /* White text color */
+}
+
+/* Form field styles */
+.form-control {
+    background-color: #555; /* Dark input background color */
+    border: 1px solid #777; /* Dark border color */
+    color: #fff; /* White text color */
+}
+
+.form-control::placeholder {
+    color: #aaa; /* Light placeholder color */
+}
+
+.form-control:focus {
+    border-color: #80bdff; /* Focus border color */
+    outline: none;
+}
+
+/* Checkbox styles */
+.form-check-input {
+    background-color: #555; /* Dark checkbox background color */
+    border: 1px solid #777; /* Dark border color */
+}
+
+.form-check-label {
+    color: #fff; /* White text color */
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #f8b400; /* Custom button color */
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #e0a800; /* Darker button color on hover */
+}
+
+.btn-secondary {
+    background-color: #777; /* Dark button color */
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #666; /* Darker button color on hover */
+}
+
+/* Social buttons */
+.btn-facebook {
+    background-color: #3b5998; /* Facebook color */
+    border: none;
+}
+
+.btn-facebook:hover {
+    background-color: #2d4373; /* Darker Facebook color on hover */
+}
+
+.btn-google {
+    background-color: #db4437; /* Google color */
+    border: none;
+}
+
+.btn-google:hover {
+    background-color: #c23321; /* Darker Google color on hover */
+}
+
+/* Link styles */
+.register-container a {
+    color: #f8b400; /* Custom link color */
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}
+
+</style>

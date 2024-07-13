@@ -1,0 +1,28 @@
+<!-- custom_index.html -->
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom_admin.css' %}">
+{% endblock %}
+{% block coltype %}colMS{% endblock %}
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block content %}
+<div class="dashboard">
+    <h1>Custom Dashboard</h1>
+    <div class="dashboard-cards">
+        <a href="{% url 'order_details' %}" class="card">
+            <h2>Orders from users</h2>
+            <p>{{ orders_count }} orders</p>
+            {% if unseen_orders_count > 0 %}
+                <div class="badge">{{ unseen_orders_count }}</div>
+            {% endif %}
+        </a>
+        <a href="{% url 'add_product' %}" class="card">
+            <h2>Add Products</h2>
+        </a>
+    </div>
+</div>
+{% endblock %}

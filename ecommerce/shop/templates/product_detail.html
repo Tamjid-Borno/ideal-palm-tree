@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container mt-5 centered-container">
+    <div class="row">
+        <div class="col-md-6 image-column" style="border-right: 2px solid #ddd; padding-right: 20px;">
+            <div class="image-container" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+        
+        <div class="col-md-6 content-column" style="border-left: 1px solid #ddd;">
+            <h1>{{ product.name }}</h1>
+            <h2>${{ product.price }}</h2>
+            <p><strong>Category:</strong> {{ product.get_category_display }}</p>
+            <p><strong>Ratings:</strong>
+                {% for i in "12345" %}
+                <ion-icon name="star" style="color: {% if i <= product.average_rating|floatformat:0 %}gold{% else %}#ddd{% endif %};"></ion-icon>
+                {% endfor %}
+                {{ product.average_rating|floatformat:2 }} out of 5 stars
+            </p>
+            {% if user.is_authenticated %}
+            <div class="rating-stars" style="font-size: 1rem;">
+                <h5>Rate this product:</h5>
+                {% for star in "12345" %}
+                <ion-icon name="star-outline" class="rating-star" data-value="{{ star }}"></ion-icon>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>You must be logged in to rate this product.</p>
+            {% endif %}
+            <p><strong>Status:</strong> {% if product.featured %}Featured{% else %}General{% endif %}</p>
+            <div class="d-flex mt-4">
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+    <hr style="border: 1px solid #ddd;">
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Description:</h5>
+            <p>{{ product.description|linebreaksbr }}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="comments">
+                <h4>Customer Comments</h4>
+                {% for comment in product.comments.all %}
+                <div class="comment mb-3" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px; position: relative;">
+                    <p><strong>{{ comment.user.username }}</strong></p>
+                    <p>{{ comment.text }}</p>
+                    {% if user.is_authenticated %}
+                    <div class="comment-options" style="position: absolute; top: 10px; right: 10px;">
+                        <ion-icon name="reorder-three-outline" style="cursor: pointer;"></ion-icon>
+                        <div class="comment-actions" style="display: none; position: absolute; right: 0; background: white; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.15);">
+                            {% if comment.user == user or user.is_superuser %}
+                            <a href="#" class="edit-comment" style="display: block; padding: 10px;">Edit</a>
+                            <form method="post" action="{% url 'delete_comment' comment.id %}" style="margin: 0;">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-comment" style="display: block; padding: 10px; width: 100%; text-align: left; border: none; background: none; cursor: pointer;">Delete</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% if user.is_authenticated %}
+            <div class="leave-comment">
+                <h5>Leave a Comment</h5>
+                <form method="post" style="max-width: 400px;">
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                    <div class="form-group">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        {{ form.text.label_tag }} {{ form.text }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            {% else %}
+            <p>You must be logged in to leave a comment.</p>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div class="row recommended-products">
+        {% for product in recommended_products %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <a href="{% url 'product_detail' product.pk %}">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">${{ product.price }}</span>
+                            <span class="text-muted">{{ product.get_category_display }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    
+    
+    
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ratingStars = document.querySelectorAll('.rating-star');
+        ratingStars.forEach(star => {
+            star.addEventListener('click', function () {
+                const ratingValue = this.getAttribute('data-value');
+                fetch("{% url 'add_rating' product.id %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({
+                        'rating': ratingValue
+                    })
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Rating submitted successfully!');
+                        window.location.reload();
+                    } else {
+                        alert('Failed to submit rating.');
+                    }
+                });
+            });
+        });
+
+        const commentOptions = document.querySelectorAll('.comment-options');
+        commentOptions.forEach(option => {
+            option.addEventListener('click', function () {
+                const actions = this.nextElementSibling;
+                actions.style.display = actions.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    });
+</script>
+{% endblock %}
+
+<style>
+.rating-stars ion-icon {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #ddd;
+}
+
+.rating-stars ion-icon:hover,
+.rating-stars ion-icon:hover ~ ion-icon,
+.rating-stars ion-icon.active {
+    color: gold;
+}
+
+/* Ensuring the cards are responsive */
+/* Ensuring the cards are responsive */
+.recommended-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center align the cards */
+}
+
+.recommended-products .card {
+    width: 12rem; /* Make the card width 100% */
+    margin: 1rem; /* Margin for spacing */
+    flex: 1 1 auto; /* Flex properties */
+}
+
+@media (max-width: 1352px) {
+    .recommended-products .card {
+        width: 11rem!important; /* Original card width for large screens */
+        margin: 1rem auto;
+    }
+}
+
+@media (max-width: 992px) {
+    .recommended-products .card {
+        width: 80%; /* Adjust card width for medium screens */
+        margin: 1rem auto; /* Center align cards with auto margin */
+    }
+}
+
+@media (max-width: 768px) {
+    .recommended-products .card {
+        width: 100%; /* Full width card for smaller screens */
+        margin: 1rem auto; /* Center align cards with auto margin */
+    }
+}
+
+@media (max-width: 576px) {
+    .recommended-products .card {
+        width: 100%; /* Full width card for the smallest screens */
+        margin: 1rem auto; /* Center align cards with auto margin */
+        padding: 0 10px;
+    }
+}
+
+.recommended-products .card-img-top {
+    width: 100%;
+    height: 15rem; /* Adjust card height */
+    object-fit: cover;
+}
+
+
+
+.image-column {
+    border-right: 2px solid #ddd;
+    padding-right: 20px;
+}
+
+.content-column {
+    padding-left: 20px;
+}
+</style>

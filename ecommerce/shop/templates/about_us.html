@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding-top: 70px; /* Add padding to avoid content being hidden behind navbar */
+        }
+        .hero-section {
+            background-color: #0056b3;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+        }
+        .content-section {
+            padding: 60px 15px;
+            background-color: white;
+            margin-bottom: 20px;
+        }
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+        .content-section p {
+            font-size: 1rem;
+            color: #666;
+        }
+        .content-section img {
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: auto;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .footer a {
+            color: #f8b400;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .centered-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    
+    <div class="hero-section">
+        <h1>Stay Efficient on the Move</h1>
+        <p>Started in 2015, Our Company makes travel gear that keeps you efficient on the move.</p>
+        <p>Whether it's an overnight, week-long, extended trip, or long-term travel, our products are designed to give you the best experience possible.</p>
+    </div>
+    
+    <div class="centered-container">
+        <div class="content-section">
+            <div class="row mb-5">
+                <div class="col-md-6 d-flex flex-column justify-content-center">
+                    <h2>Our Mission: Design Quality Products for Efficient Travel</h2>
+                    <p>We're dedicated to designing high-quality gear that solves the pain points of travel. Our mission is simple: to make the best gear that keeps us moving efficiently between cities. We believe in constant innovation and are committed to improving our products to meet the changing needs of travelers. Our team of experts is always researching and testing new materials and designs to ensure our gear remains at the forefront of functionality and style. We take pride in the durability and versatility of our products, ensuring that they can withstand the rigors of frequent travel while providing maximum convenience. Our backpacks, luggage, and accessories are designed with the traveler in mind, incorporating features that make packing and organizing easier and more efficient. Customer feedback is integral to our design process. We actively listen to the experiences and suggestions of our users, which helps us refine our products and introduce new features that address real-world travel challenges. Whether it's adding more pockets, improving ergonomic support, or using sustainable materials, our goal is to enhance your travel experience. We are also committed to sustainability. We aim to reduce our environmental impact by using eco-friendly materials and ethical manufacturing practices. Our products are designed to last, reducing the need for frequent replacements and minimizing waste.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="{% static 'images/team_photo_1.jpg' %}" alt="Our Team">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="{% static 'images/team_photo_2.jpg' %}" alt="Customer Feedback">
+                </div>
+                <div class="col-md-6 d-flex flex-column justify-content-center">
+                    <h2>Products Based on Our Customer Feedback</h2>
+                    <p>We are part of a community of like-minded shoppers. Thousands of people use our platform, and we are constantly looking for ways to improve their experience. We build new features and products based on our customers' feedback. Our platform is critically acclaimed, but we know there is always room for improvement. Having conversations with the people who use our platform is the core of our business. We really hope you will help us on our mission. Customer feedback is a cornerstone of our development process. We actively seek out and listen to the insights and suggestions of our users to refine and enhance our products continuously. This collaborative approach ensures that our offerings are not only high-quality but also meet the practical needs and preferences of our diverse customer base. We engage with our customers through various channels, including surveys, reviews, and direct communication, to gather detailed feedback on their experiences. This valuable information helps us identify areas for improvement and innovate new solutions that make a real difference in the lives of our users.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 E-commerce Site. All rights reserved.</p>
+            <p><a href="#">About Us</a> | <a href="#">Contact Us</a> | <a href="#">Privacy Policy</a></p>
+            <p>Follow us on:
+                <a href="#"><ion-icon name="logo-facebook" style="font-size: 24px;"></ion-icon></a>
+                <a href="#"><ion-icon name="logo-reddit" style="font-size: 24px;"></ion-icon></a>
+                <a href="#"><ion-icon name="logo-instagram" style="font-size: 24px;"></ion-icon></a>
+            </p>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

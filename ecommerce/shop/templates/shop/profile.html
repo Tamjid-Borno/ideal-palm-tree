@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container mt-5">
+    <h2>Profile</h2>
+    <h3>Order History</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.product.name }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>${{ order.total_price }}</td>
+                    <td>{{ order.created_at }}</td>
+                    <td>{{ order.get_status_display }}</td>
+                    <td>
+                        {% if order.status == 'pending' %}
+                        <a href="{% url 'cancel_order' order.id %}" class="btn btn-danger btn-sm">Cancel</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <h4>Total Spent: ${{ total_spent }}</h4>
+</div>
+{% endblock %}
