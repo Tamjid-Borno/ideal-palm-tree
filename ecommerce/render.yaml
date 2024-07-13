@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: my-django-app
+    env: python
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+    startCommand: "gunicorn ecommerce.wsgi:application"
+    staticPublishPath: staticfiles
