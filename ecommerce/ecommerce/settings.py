@@ -14,7 +14,7 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://testinguwu.onrender.com'
+     'https://testinguwu.onrender.com',
 ]
 
 INSTALLED_APPS = [
