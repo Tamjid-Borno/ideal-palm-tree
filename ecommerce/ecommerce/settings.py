@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'rest_framework',
-    'shop',
+    'shop.apps.ShopConfig',
     'grappelli',
 ]
 
