@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 from django.utils import timezone
+from django.db import models
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib.sites.models import Site
+
 
 class Product(models.Model):
     CATEGORY_CHOICES = (
@@ -14,7 +21,7 @@ class Product(models.Model):
     category = models.CharField(max_length=255, choices=CATEGORY_CHOICES)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     featured = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='products/')
+    image = CloudinaryField('image')
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -26,7 +33,7 @@ class Product(models.Model):
         return self.name
 
 class CarouselItem(models.Model):
-    image = models.ImageField(upload_to='carousel/')
+    image = CloudinaryField('image')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -63,7 +70,6 @@ class Reply(models.Model):
     def __str__(self):
         return f'Reply by {self.user.username} on comment {self.comment.id}'
 
-
 class Order(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
@@ -83,7 +89,6 @@ class Order(models.Model):
 
     def __str__(self):
         return f'Order {self.id} by {self.user}'
-
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -105,13 +110,9 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+
     def __str__(self):
         return f"{self.quantity} of {self.product.name}"
-
-from django.db import models
-
-from django.db import models
-from django.contrib.auth.models import User
 
 class Query(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -122,10 +123,6 @@ class Query(models.Model):
     def __str__(self):
         return self.name
 
-# models.py
-from django.db import models
-from django.contrib.auth.models import User
-
 class Subscriber(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField()
@@ -133,28 +130,11 @@ class Subscriber(models.Model):
     def __str__(self):
         return self.email
 
-from django.db import models
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.conf import settings
-from .models import Subscriber
-
-import logging
-
-logger = logging.getLogger(__name__)
-
-from django.db import models
-from django.utils import timezone
-
-
-from django.template.loader import render_to_string
-from django.core.mail import send_mail
-from django.conf import settings
 from django.contrib.sites.models import Site
 
 class Announcement(models.Model):
     headline = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='announcements/', blank=True, null=True)
+    image = CloudinaryField('image', blank=True, null=True)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -163,8 +143,11 @@ class Announcement(models.Model):
         self.send_announcement_email()
 
     def send_announcement_email(self):
-        site = Site.objects.get_current()
-        image_url = f'http://{site.domain}{self.image.url}' if self.image else None
+        try:
+            site = Site.objects.get_current()
+        except Site.DoesNotExist:
+            site = Site(domain='https://testinguwu.onrender.com', name='example')  # Fallback to a default site
+        image_url = self.image.url if self.image else None
 
         subscribers = Subscriber.objects.all()
         for subscriber in subscribers:
@@ -172,7 +155,8 @@ class Announcement(models.Model):
             message = render_to_string('announcement_email.html', {
                 'headline': self.headline,
                 'content': self.content,
-                'image_url': image_url
+                'image_url': image_url,
+                'site': site
             })
             send_mail(subject, '', settings.DEFAULT_FROM_EMAIL, [subscriber.email], html_message=message)
 

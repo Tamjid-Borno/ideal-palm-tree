@@ -1,60 +1,14 @@
-<!-- shop/templates/announcement_email.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ headline }}</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-            text-align: center;
-            padding: 10px 0;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #ff6600;
-        }
-        .content {
-            margin: 20px 0;
-        }
-        .footer {
-            text-align: center;
-            padding: 10px 0;
-            border-top: 1px solid #ccc;
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>{{ headline }}</h1>
-        </div>
-        <div class="content">
-            {% if image_url %}
-                <img src="{{ image_url }}" alt="Announcement Image" style="width: 100%; height: auto;">
-            {% endif %}
-            <p>{{ content }}</p>
-        </div>
-        <div class="footer">
-            <p>&copy; 2024 E-commerce Site. All rights reserved.</p>
-        </div>
-    </div>
+    <h1>{{ headline }}</h1>
+    <p>{{ content }}</p>
+    {% if image_url %}
+        <img src="{{ image_url }}" alt="{{ headline }}">
+    {% endif %}
+    <p>Visit us at: {{ site.domain }}</p>
 </body>
 </html>
