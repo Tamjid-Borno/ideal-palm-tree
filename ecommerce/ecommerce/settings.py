@@ -75,6 +75,7 @@ DATABASES = {
 }
 
 DATABASES["default"] = dj_database_url.parse("postgresql://database_django_u7md_user:mHDCmfADypK4y2JAOh9OSW1zgLRuxEsz@dpg-cq927mrv2p9s73cc90d0-a.oregon-postgres.render.com/database_django_u7md")
+DATABASES['default']['CONN_MAX_AGE'] = 600
 
 AUTH_PASSWORD_VALIDATORS = [
     {
