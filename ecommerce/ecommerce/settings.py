@@ -67,15 +67,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
+# Database configuration for Render PostgreSQL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'lal_tamatar',
+        'USER': 'lal_tamatar_user',
+        'PASSWORD': 'bHWXkb86cSgV58mESOrH8dVkd7EpGLMn',
+        'HOST': 'dpg-cr3edhqj1k6c73dl5lm0-a.oregon-postgres.render.com',
+        'PORT': '5432',
+        'CONN_MAX_AGE': 600,  # Persistent connections
     }
 }
-
-DATABASES["default"] = dj_database_url.parse("postgresql://database_django_u7md_user:mHDCmfADypK4y2JAOh9OSW1zgLRuxEsz@dpg-cq927mrv2p9s73cc90d0-a.oregon-postgres.render.com/database_django_u7md")
-DATABASES['default']['CONN_MAX_AGE'] = 600
 
 AUTH_PASSWORD_VALIDATORS = [
     {
